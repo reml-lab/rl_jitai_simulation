@@ -40,7 +40,7 @@ class ReinforceAgent():
 
   def choose_action(self, observation, env_trajectory=None):
     state = torch.tensor(observation, dtype=torch.float).to(self.policy.device)
-    action_probs = F.softmax(self.policy.forward(state))
+    action_probs = F.softmax(self.policy.forward(state), dim=0)
     action_dist = torch.distributions.Categorical(action_probs)
     action = action_dist.sample()
     log_probs = action_dist.log_prob(action)
